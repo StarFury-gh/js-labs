@@ -50,7 +50,7 @@
                             <p class="product-description">Идеальное сочетание эспрессо, горячего молока и молочной
                                 пенки</p>
                             <div class="product-price">250 ₽</div>
-                            <button onclick="addToOrder(250)" class="add-btn">Добавить</button>
+                            <button onclick="addToOrder(250, 'капучино')" class="add-btn">Добавить</button>
                         </div>
                     </div>
 
@@ -63,7 +63,7 @@
                             <p class="product-description">Нежный кофейный напиток с большим количеством молока и
                                 воздушной пенкой</p>
                             <div class="product-price">280 ₽</div>
-                            <button onclick="addToOrder(280)" class="add-btn">Добавить</button>
+                            <button onclick="addToOrder(280, 'латте')" class="add-btn">Добавить</button>
                         </div>
                     </div>
 
@@ -76,7 +76,7 @@
                             <p class="product-description">Нежный напиток на основе эспрессо со сливками и ванильным
                                 сахаром</p>
                             <div class="product-price">320 ₽</div>
-                            <button onclick="addToOrder(320)" class="add-btn">Добавить</button>
+                            <button onclick="addToOrder(320, 'раф')" class="add-btn">Добавить</button>
                         </div>
                     </div>
 
@@ -89,7 +89,7 @@
                             <p class="product-description">Свежая выпечка с творожной начинкой, идеально сочетается с
                                 кофе</p>
                             <div class="product-price">80 ₽</div>
-                            <button onclick="addToOrder(80)" class="add-btn">Добавить</button>
+                            <button onclick="addToOrder(80, 'творожное кольцо')" class="add-btn">Добавить</button>
                         </div>
                     </div>
                     <!-- Круассан -->
@@ -100,7 +100,7 @@
                             <h3 class="product-title">Круассан</h3>
                             <p class="product-description">Классический утренний перекус</p>
                             <div class="product-price">70 ₽</div>
-                            <button onclick="addToOrder(70)" class="add-btn">Добавить</button>
+                            <button onclick="addToOrder(70, 'крусан')" class="add-btn">Добавить</button>
                         </div>
                     </div>
                     <!-- Пирожок с вишней -->
@@ -111,7 +111,7 @@
                             <h3 class="product-title">Пирожок с вишней</h3>
                             <p class="product-description">Свежий слоёный пирожок со сладкой вишней</p>
                             <div class="product-price">80 ₽</div>
-                            <button onclick="addToOrder(80)" class="add-btn">Добавить</button>
+                            <button onclick="addToOrder(80, 'пирижок с вишней')" class="add-btn">Добавить</button>
                         </div>
                     </div>
                 </div>
@@ -151,8 +151,7 @@
                                 <label for="price">Сумма заказа:</label>
                                 <p type="text" id="price">0</p>
                                 <button onclick="clearPrice()" type="button" class="clear-btn">Очистить</button>
-                                <button onclick="activateSales()" type="button" class="ticket-btn"
-                                    id="ticket-btn">Применить
+                                <button onclick="addSales()" type="button" class="ticket-btn" id="ticket-btn">Применить
                                     скидки</button>
                             </div>
                             <button id="submit-order-btn" type="submit" class="btn">Оформить заказ</button>

@@ -7,10 +7,19 @@ let address = ""
 
 let ordered_positions = []
 
+const available_positions = [
+    "раф",
+    "капучино",
+    "латте",
+    "творожное кольцо",
+    "круассан",
+    // "пирожок с вишней", // Позиция отсутствует
+]
+
 const current_sales = {
     "День сладостей": 0.95,
     "Будни": 0.90,
-    "Оплата наличными": 0.3,
+    "Оплата наличными": 0.80,
 }
 
 const btn = document.querySelector("#submit-order-btn")
@@ -34,9 +43,10 @@ btn.addEventListener("mouseout", () => {
     btn.classList.remove("btn-hover")
 })
 
-function addToOrder(value) {
+function addToOrder(value, position) {
     console.log(`Added ${value}$ to order.\nCurrent price: ${totalPrice}`)
     totalPrice += Number(value)
+    ordered_positions.push(position)
     price_p.textContent = totalPrice
 }
 
@@ -46,30 +56,6 @@ function clearPrice() {
     hasTicket = false
     hasSales = false
     ticket_btn.classList.remove("blocked")
-}
-
-function activateSales() {
-    const price_with_sales = countPriceWithSales()
-    price_p.textContent = price_with_sales
-}
-
-function countPriceWithSales() {
-    addTicket()
-    addSales()
-    const result = totalPrice
-    return result
-}
-
-function addTicket() {
-    if (totalPrice < 1000) {
-        alert("Скидку можно применить только при заказе от 1000 рублей")
-        return
-    }
-    if (!hasTicket) {
-        hasTicket = true
-        totalPrice *= 0.9
-    }
-    ticket_btn.classList.add("blocked")
 }
 
 function addSales() {
@@ -92,15 +78,53 @@ function addSales() {
             console.log(`Add: ${sale}.\nTotalPrice: ${totalPrice}`)
         }
         hasSales = true
+        price_p.textContent = totalPrice
     }
     else {
         alert("Скидки уже применены.")
     }
 }
 
+function checkOrderPositions() {
+    let i = 0
+    do {
+        if (!available_positions.includes(ordered_positions[i])) {
+            alert(`'${ordered_positions[i]}' сейчас не доступен.`)
+            return false
+        }
+        i++
+    } while (i < ordered_positions.length)
+    return true
+}
+
+function checkPhoneNumber(phone_number) {
+    let i = 0
+    if (phone_number.length != 11) {
+        alert('Введен невалидный номер телефона')
+        return false
+    }
+    while (i < phone_number.length) {
+        const is_digit = Number(phone_number).isNaN()
+        if (!is_digit) {
+            alert("Номер телефона содержит недопустимые символы.")
+            return false
+        }
+    }
+    return true
+}
+
 function sendRequest() {
+    console.log(ordered_positions)
     const phone_field = document.querySelector("#phone")
     const address_field = document.querySelector("#address")
+
+    const is_order_valid = checkOrderPositions()
+    const is_phone_number_valid = checkPhoneNumber(phone_field.value)
+
+    if (!is_order_valid.status || !is_phone_number_valid.status) {
+        return
+    }
+
     console.log("Данные заказа:", {
         phone: phone_field.value,
         address: address_field.value,
